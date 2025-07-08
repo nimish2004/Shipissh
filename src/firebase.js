@@ -6,8 +6,8 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyAGkx2QRxM8qHNE1hski5KIYD0nFcg8b3Y",
-  authDomain: "shipment-app-9f364.firebaseapp.com",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN_KEY,
   projectId: "shipment-app-9f364",
   storageBucket: "shipment-app-9f364.appspot.com",
   messagingSenderId: "900240389810",
