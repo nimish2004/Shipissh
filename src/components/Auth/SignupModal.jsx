@@ -1,8 +1,8 @@
-// components/Auth/SignupModal.jsx
 import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
@@ -14,8 +14,6 @@ import {
 } from "firebase/storage";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
-
 
 const SignupModal = ({ onClose }) => {
   const navigate = useNavigate();
@@ -62,12 +60,14 @@ const SignupModal = ({ onClose }) => {
       const user = result.user;
       let photoURL = "";
 
+      // Upload profile photo if available
       if (photo) {
         const storageRef = ref(storage, `profilePhotos/${user.uid}`);
         await uploadBytes(storageRef, photo);
         photoURL = await getDownloadURL(storageRef);
       }
 
+      // Update user profile
       await updateProfile(user, {
         displayName: formData.displayName,
         photoURL:
@@ -75,6 +75,7 @@ const SignupModal = ({ onClose }) => {
           `https://ui-avatars.com/api/?name=${formData.displayName}&background=0D8ABC&color=fff`,
       });
 
+      // Save user to Firestore
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
@@ -87,7 +88,14 @@ const SignupModal = ({ onClose }) => {
         createdAt: Timestamp.now(),
       });
 
-      navigate("/dashboard"); 
+      // Send verification email
+      await sendEmailVerification(user);
+      alert("Signup successful! Please verify your email before logging in.");
+
+      // Optionally: sign out until email is verified
+      // await auth.signOut();
+
+      onClose(); // or navigate("/login")
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -155,6 +163,13 @@ const SignupModal = ({ onClose }) => {
             className="w-full p-3 border border-gray-300 text-sm rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
 
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setPhoto(e.target.files[0])}
+            className="text-sm text-blue-800"
+          />
+
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -184,10 +199,10 @@ const SignupModal = ({ onClose }) => {
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
 
-
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
+            disabled={loading}
           >
             {loading ? "Signing up..." : "Sign Up"}
           </button>

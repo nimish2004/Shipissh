@@ -13,17 +13,31 @@ const LoginModal = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      if (result.user.email === "admin@example.com") navigate("/admin");
-      else navigate("/dashboard");
-      onClose(); // Close modal after login
-    } catch (err) {
-      setError("Invalid credentials");
+  e.preventDefault();
+  setError("");
+
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+
+    // Check email verification
+    if (!result.user.emailVerified) {
+      setError("Please verify your email before logging in.");
+      // Optionally sign them out immediately
+      await auth.signOut();
+      return;
     }
-  };
+
+    // Navigate if verified
+    if (result.user.email === "admin@example.com") navigate("/admin");
+    else navigate("/dashboard");
+
+    onClose(); // Close modal
+  } catch (err) {
+    console.error("Login error:", err.message);
+    setError("Invalid credentials");
+  }
+};
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">

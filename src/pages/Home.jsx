@@ -47,10 +47,10 @@ const [showSignup, setShowSignup] = useState(false);
   <img
     src="/logo.png"
     alt="Logo Background"
-    className="absolute inset-0 mx-auto opacity-10 w-96 lg:w-[500px] top-20 z-0"
+    className="absolute inset-0 mx-auto opacity-30 w-96 lg:w-[500px] top-20 z-0"
     style={{ pointerEvents: "none" }}
   />
-  
+
       {/* Navbar */}
      <nav className="bg-gradient-to-r from-blue-50 via-white to-blue-100 px-8 py-4 shadow-md sticky top-0 z-50 border-b border-blue-200 flex justify-between items-center">
   {/* Logo + Brand */}
@@ -61,12 +61,7 @@ const [showSignup, setShowSignup] = useState(false);
     </h1>
   </div>
 
-  {/* Navigation Links */}
-  <div className="hidden md:flex gap-6 text-blue-700 font-medium text-sm">
-    <a href="#trackSection" className="hover:text-blue-900 transition">Track</a>
-    <a href="#features" className="hover:text-blue-900 transition">Features</a>
-    <a href="#contact" className="hover:text-blue-900 transition">Contact</a>
-  </div>
+ 
 
   {/* Auth Buttons */}
   <div className="space-x-3">
