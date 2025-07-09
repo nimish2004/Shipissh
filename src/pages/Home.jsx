@@ -43,32 +43,48 @@ const [showSignup, setShowSignup] = useState(false);
 
   return (
     <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col font-sans">
+       {/* BIG Logo Background */}
+  <img
+    src="/logo.png"
+    alt="Logo Background"
+    className="absolute inset-0 mx-auto opacity-10 w-96 lg:w-[500px] top-20 z-0"
+    style={{ pointerEvents: "none" }}
+  />
+  
       {/* Navbar */}
      <nav className="bg-gradient-to-r from-blue-50 via-white to-blue-100 px-8 py-4 shadow-md sticky top-0 z-50 border-b border-blue-200 flex justify-between items-center">
-  {/* Logo / Brand */}
-  <h1 className="text-3xl font-extrabold text-blue-700 tracking-wide">
-    <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+  {/* Logo + Brand */}
+  <div className="flex items-center gap-3">
+    <img src="/logo.png" alt="Shipissh Logo" className="w-10 h-10 object-contain" />
+    <h1 className="text-2xl font-extrabold text-blue-700 tracking-wide">
       Shipissh
-    </span>
-  </h1>
+    </h1>
+  </div>
 
-  {/* Buttons */}
-  <div className="space-x-4">
+  {/* Navigation Links */}
+  <div className="hidden md:flex gap-6 text-blue-700 font-medium text-sm">
+    <a href="#trackSection" className="hover:text-blue-900 transition">Track</a>
+    <a href="#features" className="hover:text-blue-900 transition">Features</a>
+    <a href="#contact" className="hover:text-blue-900 transition">Contact</a>
+  </div>
+
+  {/* Auth Buttons */}
+  <div className="space-x-3">
     <button
       onClick={() => setShowLogin(true)}
-      className="text-blue-700 hover:text-white hover:bg-blue-500 px-4 py-2 rounded-lg font-medium border border-blue-500 transition duration-200"
+      className="text-blue-700 hover:text-white hover:bg-blue-500 px-4 py-2 rounded-lg font-medium border border-blue-500 transition"
     >
       Login
     </button>
-
     <button
       onClick={() => setShowSignup(true)}
-      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition duration-200"
+      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
     >
       Sign Up
     </button>
   </div>
 </nav>
+
 
 
       {/* Hero Section */}
