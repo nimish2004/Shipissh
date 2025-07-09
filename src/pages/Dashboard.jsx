@@ -1,56 +1,58 @@
 import { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import ShipmentModal from "../components/ShipmentModal";
+
 
 const Dashboard = () => {
   const [shipments, setShipments] = useState([]);
+  const [selectedShipment, setSelectedShipment] = useState(null);
+
 
   useEffect(() => {
-    const fetchShipments = async () => {
-      try {
-        const q = query(
-          collection(db, "shipments"),
-          where("userId", "==", auth.currentUser.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setShipments(data);
-      } catch (err) {
-        console.error("Failed to fetch shipments:", err);
-      }
-    };
+    if (!auth.currentUser) return;
 
-    fetchShipments();
+    const q = query(
+      collection(db, "shipments"),
+      where("userId", "==", auth.currentUser.uid)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setShipments(data);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const updateStatus = async (id, newStatus) => {
-    try {
-      const shipmentRef = doc(db, "shipments", id);
-      await updateDoc(shipmentRef, { status: newStatus });
-      setShipments((prev) =>
-        prev.map((s) => (s.id === id ? { ...s, status: newStatus } : s))
-      );
-    } catch (err) {
-      console.error("Error updating status:", err);
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Delivered":
+        return "bg-green-100 text-green-700";
+      case "In Transit":
+        return "bg-yellow-100 text-yellow-800";
+      case "Cancelled":
+        return "bg-red-100 text-red-700";
+      case "Created":
+        return "bg-gray-200 text-gray-700";
+      case "Picked Up":
+        return "bg-blue-100 text-blue-700";
+      case "Out for Delivery":
+        return "bg-orange-100 text-orange-700";
+      default:
+        return "bg-slate-100 text-slate-600";
     }
   };
 
   return (
-    <div className="flex-1 p-6 md:p-10 bg-[#0F172A] text-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-white mb-8">📦 Your Shipments</h1>
+     <div className="flex-1 p-6 md:p-10 bg-white text-blue-800 min-h-screen">
+      <h1 className="text-3xl font-bold text-blue-700 mb-8">📦 Your Shipments</h1>
 
       {shipments.length === 0 ? (
-        <div className="bg-slate-800 p-8 rounded-xl text-center text-gray-400 border border-slate-700 shadow-inner">
+        <div className="bg-blue-50 p-8 rounded-xl text-center text-blue-400 border border-blue-200 shadow-inner">
           No shipments found.
         </div>
       ) : (
@@ -58,35 +60,25 @@ const Dashboard = () => {
           {shipments.map((s) => (
             <div
               key={s.id}
-              className="bg-gradient-to-br from-slate-800 to-slate-700 p-6 rounded-2xl shadow-md border border-slate-600 transition-transform hover:scale-[1.01]"
+              onClick={() => setSelectedShipment(s)}
+              className="cursor-pointer bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-xl shadow border border-blue-300 hover:shadow-lg transition"
             >
-              <div className="text-sm text-gray-400 mb-1">
-                📦 <span className="font-mono">#{s.trackingId}</span>
-              </div>
-              <h2 className="text-xl font-semibold text-white mb-1">
-                {s.senderName}
-              </h2>
-              <p className="text-sm text-gray-300 mb-1">→ {s.receiverName}</p>
-              <p className="text-xs text-gray-500 mb-4">
+              <div className="text-xs text-blue-600 mb-1 font-mono">#{s.trackingId}</div>
+              <h2 className="text-lg font-semibold text-blue-800 mb-1">{s.senderName}</h2>
+              <p className="text-sm text-blue-700">→ {s.receiverName}</p>
+              <p className="text-xs text-blue-500 mb-3">
                 Size: <span className="font-medium">{s.packageSize}</span>
               </p>
-
-              <p className="text-sm font-semibold text-green-400 mb-2">
-                Status: {s.status}
-              </p>
-              <select
-                value={s.status}
-                onChange={(e) => updateStatus(s.id, e.target.value)}
-                className="w-full p-2 rounded-lg text-sm bg-slate-900 text-white border border-slate-600 focus:ring-2 focus:ring-teal-500 transition"
-              >
-                <option value="Created">Created</option>
-                <option value="In Transit">In Transit</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
+              <span className={`px-3 py-1 text-xs rounded-full font-semibold ${getStatusColor(s.status)}`}>
+                {s.status}
+              </span>
             </div>
           ))}
         </div>
+      )}
+
+      {selectedShipment && (
+        <ShipmentModal shipment={selectedShipment} onClose={() => setSelectedShipment(null)} />
       )}
     </div>
   );

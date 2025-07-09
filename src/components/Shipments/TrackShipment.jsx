@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { db } from "../../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import ShipmentModal from "../ShipmentModal";
 
 const TrackShipment = () => {
   const [trackingId, setTrackingId] = useState("");
   const [shipment, setShipment] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ const TrackShipment = () => {
       } else {
         const doc = querySnapshot.docs[0];
         setShipment({ id: doc.id, ...doc.data() });
+        setModalOpen(true); // Open modal
       }
     } catch (err) {
       console.error("Error searching shipment:", err);
@@ -36,52 +39,35 @@ const TrackShipment = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-slate-800 text-white p-8 rounded-2xl shadow-lg border border-slate-600 mt-8">
-      <h2 className="text-3xl font-bold text-cyan-400 mb-6 text-center">
+    <div className="max-w-xl mx-auto bg-white text-blue-800 p-8 rounded-3xl shadow border border-blue-200 mt-10">
+      <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
         📦 Track Your Shipment
       </h2>
 
-      {/* Form */}
-      <form onSubmit={handleSearch} className="flex flex-col gap-5">
+      <form onSubmit={handleSearch} className="flex flex-col gap-4">
         <input
           type="text"
           placeholder="Enter Tracking ID (e.g. TRK-ABC123XYZ)"
           value={trackingId}
           onChange={(e) => setTrackingId(e.target.value)}
-          className="w-full p-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          className="w-full p-3 rounded-lg border border-blue-300 placeholder-gray-500 text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
         <button
           type="submit"
           disabled={loading}
-          className="bg-cyan-600 hover:bg-cyan-700 text-white p-2 rounded-lg font-semibold shadow transition"
+          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg font-semibold transition shadow"
         >
           {loading ? "🔎 Searching..." : "🔍 Track Shipment"}
         </button>
       </form>
 
-      {/* Error Message */}
       {error && (
-        <p className="text-red-400 mt-4 text-center font-medium">{error}</p>
+        <p className="text-red-600 mt-4 text-center font-medium">{error}</p>
       )}
 
-      {/* Shipment Details */}
-      {shipment && (
-        <div className="mt-6 bg-slate-700 p-6 rounded-xl border border-slate-500 shadow-md">
-          <div className="text-sm text-slate-300 mb-1">
-            <span className="text-gray-400">Tracking ID:</span>{" "}
-            <span className="font-mono text-white">{shipment.trackingId}</span>
-          </div>
-          <div className="text-lg font-bold text-cyan-400">
-            {shipment.senderName} → {shipment.receiverName}
-          </div>
-          <div className="text-sm text-slate-300 mb-2">
-            Package Size: <span className="text-white">{shipment.packageSize}</span>
-          </div>
-          <div className="text-sm font-medium text-green-400">
-            Status: {shipment.status}
-          </div>
-        </div>
+      {shipment && modalOpen && (
+        <ShipmentModal shipment={shipment} onClose={() => setModalOpen(false)} />
       )}
     </div>
   );

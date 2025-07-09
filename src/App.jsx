@@ -7,8 +7,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import Signup from "./components/Auth/Signup";
-import Login from "./components/Auth/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateShipment from "./components/Shipments/CreateShipment";
 import TrackShipment from "./components/Shipments/TrackShipment"; 
@@ -21,23 +19,21 @@ import ProtectedAdminRoute from "./components/Auth/ProtectedAdminRoute";
 import UpdateShipment from "./admin/UpdateShipment";
 import AdminLayout from "./admin/AdminLayout"; 
 import Users from "./admin/Users";
-
+import Home from "./pages/Home";
 
 function App() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await signOut(auth);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <div className="min-h-screen text-slate-800">
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<Home />} />
       <Route
   path="/admin"
   element={

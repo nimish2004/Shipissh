@@ -54,76 +54,40 @@ const CreateShipment = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-slate-800 text-white p-8 rounded-2xl shadow-lg border border-slate-600">
-      <h2 className="text-3xl font-bold text-cyan-400 mb-8 text-center">
+    <div className="bg-white border border-blue-200 p-8 rounded-3xl shadow-md hover:shadow-lg transition-transform hover:scale-[1.01] max-w-2xl mx-auto my-10">
+      <h2 className="text-3xl font-bold text-blue-700 mb-8 text-center">
         📦 Create New Shipment
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-5 max-w-md mx-auto">
-        {/* Sender Name */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Sender Name</label>
-          <input
-            type="text"
-            name="senderName"
-            value={formData.senderName}
-            onChange={handleChange}
-            placeholder="John Doe"
-            className={inputStyle}
-            required
-          />
-        </div>
-
-        {/* Sender Phone */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Sender Phone</label>
-          <input
-            type="tel"
-            name="senderPhone"
-            value={formData.senderPhone}
-            onChange={handleChange}
-            placeholder="+91 9876543210"
-            className={inputStyle}
-            required
-          />
-        </div>
-
-        {/* Receiver Name */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Receiver Name</label>
-          <input
-            type="text"
-            name="receiverName"
-            value={formData.receiverName}
-            onChange={handleChange}
-            placeholder="Jane Smith"
-            className={inputStyle}
-            required
-          />
-        </div>
-
-        {/* Receiver Phone */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Receiver Phone</label>
-          <input
-            type="tel"
-            name="receiverPhone"
-            value={formData.receiverPhone}
-            onChange={handleChange}
-            placeholder="+91 9123456789"
-            className={inputStyle}
-            required
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {[
+          { name: "senderName", label: "Sender Name", type: "text", placeholder: "John Doe" },
+          { name: "senderPhone", label: "Sender Phone", type: "tel", placeholder: "+91 9876543210" },
+          { name: "receiverName", label: "Receiver Name", type: "text", placeholder: "Jane Smith" },
+          { name: "receiverPhone", label: "Receiver Phone", type: "tel", placeholder: "+91 9123456789" },
+        ].map(({ name, label, type, placeholder }) => (
+          <div key={name}>
+            <label className="block text-sm font-semibold text-blue-800 mb-1">{label}</label>
+            <input
+              type={type}
+              name={name}
+              value={formData[name]}
+              onChange={handleChange}
+              placeholder={placeholder}
+              className={inputStyle}
+              required
+            />
+          </div>
+        ))}
 
         {/* Package Size */}
         <div>
-          <label className="block text-sm font-semibold mb-1">Package Size</label>
+          <label className="block text-sm font-semibold text-blue-800 mb-1">Package Size</label>
           <select
             name="packageSize"
             value={formData.packageSize}
             onChange={handleChange}
-            className={`${inputStyle} bg-slate-700 text-white`}
+            className={`${inputStyle} bg-white text-gray-800`}
             required
           >
             <option value="">Select package size</option>
@@ -134,52 +98,30 @@ const CreateShipment = () => {
           </select>
         </div>
 
-        {/* Pickup Address */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Pickup Address</label>
-          <textarea
-            name="pickupAddress"
-            value={formData.pickupAddress}
-            onChange={handleChange}
-            placeholder="1234 Main St, City, Pincode"
-            rows={3}
-            className={inputStyle}
-            required
-          />
-        </div>
+        {/* Textareas */}
+        {[
+          { name: "pickupAddress", label: "Pickup Address", placeholder: "1234 Main St, City, Pincode", rows: 3 },
+          { name: "deliveryAddress", label: "Delivery Address", placeholder: "5678 Sector Rd, City, Pincode", rows: 3 },
+          { name: "shipmentNote", label: "Shipment Note", placeholder: "e.g. Handle with care, fragile item", rows: 2 },
+        ].map(({ name, label, placeholder, rows }) => (
+          <div key={name}>
+            <label className="block text-sm font-semibold text-blue-800 mb-1">{label}</label>
+            <textarea
+              name={name}
+              value={formData[name]}
+              onChange={handleChange}
+              placeholder={placeholder}
+              rows={rows}
+              className={inputStyle}
+              required={name !== "shipmentNote"}
+            />
+          </div>
+        ))}
 
-        {/* Delivery Address */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Delivery Address</label>
-          <textarea
-            name="deliveryAddress"
-            value={formData.deliveryAddress}
-            onChange={handleChange}
-            placeholder="5678 Sector Rd, City, Pincode"
-            rows={3}
-            className={inputStyle}
-            required
-          />
-        </div>
-
-        {/* Shipment Note */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">Shipment Note</label>
-          <textarea
-            name="shipmentNote"
-            value={formData.shipmentNote}
-            onChange={handleChange}
-            placeholder="e.g. Handle with care, fragile item"
-            rows={2}
-            className={inputStyle}
-          />
-        </div>
-
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-cyan-600 hover:bg-cyan-700 text-white p-3 rounded-lg font-semibold shadow transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
         >
           {loading ? "Creating..." : "Create Shipment"}
         </button>
@@ -188,8 +130,7 @@ const CreateShipment = () => {
   );
 };
 
-// Input style reused across fields
 const inputStyle =
-  "w-full p-3 rounded-lg bg-slate-700 border border-slate-500 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 transition";
+  "w-full p-3 rounded-xl border border-blue-300 placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white";
 
 export default CreateShipment;

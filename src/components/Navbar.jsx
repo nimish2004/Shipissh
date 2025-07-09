@@ -24,33 +24,28 @@ const Navbar = ({ onLogout }) => {
   }, []);
 
   return (
-    <header className="h-16 bg-[#1E293B] text-white flex items-center justify-between px-6 shadow border-b border-slate-700">
+    <header className="h-16 bg-gradient-to-r from-white via-blue-50 to-blue-100 text-gray-800 flex items-center justify-between px-6 shadow border-b border-blue-200">
       {/* Logo */}
       <Link to="/dashboard">
-        <h1 className="text-xl font-bold tracking-wide text-cyan-400 hover:text-cyan-300 transition">
-          📦 Shipissh
-        </h1>
+        
       </Link>
 
       {/* Right section */}
       <div className="flex items-center gap-5">
-        <Link
-          to="/profile"
-          className="flex items-center gap-2 group transition"
-        >
+        <Link to="/profile" className="flex items-center gap-2 group transition">
           <img
             src={user.photoURL}
             alt="avatar"
-            className="w-9 h-9 rounded-full object-cover border border-slate-500 group-hover:ring-2 group-hover:ring-cyan-500"
+            className="w-9 h-9 rounded-full object-cover border border-blue-300 group-hover:ring-2 group-hover:ring-blue-400"
           />
-          <span className="text-sm font-medium text-slate-200 group-hover:underline">
+          <span className="text-sm font-medium text-gray-700 group-hover:underline">
             {user.displayName}
           </span>
         </Link>
 
         <button
           onClick={onLogout}
-          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-lg text-sm font-semibold transition shadow-sm"
+          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-lg text-sm font-semibold text-white transition shadow"
         >
           <FiLogOut size={16} />
           Logout
@@ -59,5 +54,6 @@ const Navbar = ({ onLogout }) => {
     </header>
   );
 };
+
 
 export default Navbar;
