@@ -48,7 +48,7 @@ const Dashboard = () => {
   };
 
   return (
-     <div className="flex-1 p-6 md:p-10 bg-white text-blue-800 min-h-screen">
+     <div className="flex-1 p-6 md:p-10 bg-white text-blue-800 min-h-screen rounded-3xl shadow-md hover:shadow-lg transition-transform">
       <h1 className="text-3xl font-bold text-blue-700 mb-8">📦 Your Shipments</h1>
 
       {shipments.length === 0 ? (

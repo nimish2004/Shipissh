@@ -44,19 +44,32 @@ const [showSignup, setShowSignup] = useState(false);
   return (
     <div className="bg-gray-100 text-gray-800 min-h-screen flex flex-col font-sans">
       {/* Navbar */}
-      <nav className="bg-white px-6 py-4 flex justify-between items-center shadow-md sticky top-0 z-50 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-blue-600">Shipissh</h1>
-        <div className="space-x-4">
-      <button onClick={() => setShowLogin(true)}>Login</button>
-          <button
-  onClick={() => setShowSignup(true)}
-  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition"
->
-  Sign Up
-</button>
+     <nav className="bg-gradient-to-r from-blue-50 via-white to-blue-100 px-8 py-4 shadow-md sticky top-0 z-50 border-b border-blue-200 flex justify-between items-center">
+  {/* Logo / Brand */}
+  <h1 className="text-3xl font-extrabold text-blue-700 tracking-wide">
+    <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+      Shipissh
+    </span>
+  </h1>
 
-        </div>
-      </nav>
+  {/* Buttons */}
+  <div className="space-x-4">
+    <button
+      onClick={() => setShowLogin(true)}
+      className="text-blue-700 hover:text-white hover:bg-blue-500 px-4 py-2 rounded-lg font-medium border border-blue-500 transition duration-200"
+    >
+      Login
+    </button>
+
+    <button
+      onClick={() => setShowSignup(true)}
+      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition duration-200"
+    >
+      Sign Up
+    </button>
+  </div>
+</nav>
+
 
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-white via-red-100 to-blue-500">
@@ -134,6 +147,77 @@ const [showSignup, setShowSignup] = useState(false);
           </div>
         </div>
       </section>
+
+      {/* Ese Hi*/}
+     <section className="py-16 bg-gradient-to-br from-blue-50 to-white">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-4xl font-extrabold text-blue-800 mb-4">
+      🚀 How It Works
+    </h2>
+    <p className="text-lg text-gray-600 mb-12">
+      Getting your shipment delivered is as easy as 1-2-3.
+    </p>
+
+    <div className="grid md:grid-cols-3 gap-10">
+      {/* Step 1 */}
+      <div className="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-blue-500 hover:scale-105 hover:shadow-xl transition-all">
+        <div className="text-5xl mb-4 text-blue-600">📦</div>
+        <h3 className="text-xl font-semibold text-blue-800 mb-2">
+          1. Create Shipment
+        </h3>
+        <p className="text-gray-600">
+          Fill in sender & receiver details, select package size and confirm.
+        </p>
+      </div>
+
+      {/* Step 2 */}
+      <div className="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-yellow-400 hover:scale-105 hover:shadow-xl transition-all">
+        <div className="text-5xl mb-4 text-yellow-500">📍</div>
+        <h3 className="text-xl font-semibold text-yellow-600 mb-2">
+          2. Real-Time Tracking
+        </h3>
+        <p className="text-gray-600">
+          Instantly track your parcel from pickup to delivery.
+        </p>
+      </div>
+
+      {/* Step 3 */}
+      <div className="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-green-500 hover:scale-105 hover:shadow-xl transition-all">
+        <div className="text-5xl mb-4 text-green-600">✅</div>
+        <h3 className="text-xl font-semibold text-green-700 mb-2">
+          3. Fast Delivery
+        </h3>
+        <p className="text-gray-600">
+          Enjoy prompt, doorstep delivery with full transparency.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{/* why us */}
+<section className="bg-gradient-to-r from-blue-100 via-white to-blue-50 py-20 px-6 text-center">
+  <div className="max-w-4xl mx-auto">
+    <h1 className="text-5xl font-extrabold text-blue-800 mb-4">
+      Shipissh — Trusted by Millions 🌍
+    </h1>
+    <p className="text-xl text-gray-700 mb-8">
+      World’s No. 1 Logistics & Delivery Platform. Reliable. Fast. Transparent.
+    </p>
+
+    <a
+      href="#"
+      className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold shadow hover:bg-blue-700 transition"
+    >
+      🔍 Track Your Shipment
+    </a>
+  </div>
+</section>
+
+
+
 
       {/* Footer */}
       <footer className="bg-blue-50 border-t border-blue-100 text-gray-700 text-sm">
