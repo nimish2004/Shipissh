@@ -1,4 +1,3 @@
-// src/admin/UpdateShipment.jsx
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
@@ -45,25 +44,36 @@ const UpdateShipment = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-10 text-gray-500">Loading...</div>;
+    return (
+      <div className="text-center py-10 text-gray-500 text-base sm:text-lg">
+        Loading...
+      </div>
+    );
   }
 
   if (!shipment) {
-    return <div className="text-center text-red-500">Shipment not found.</div>;
+    return (
+      <div className="text-center text-red-500 text-base sm:text-lg">
+        Shipment not found.
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white text-slate-800 p-8 mt-8 rounded-xl border border-blue-200 shadow">
-      <h2 className="text-2xl font-bold text-blue-600 mb-4">✏️ Update Shipment</h2>
+    <div className="max-w-2xl w-full mx-auto bg-white text-slate-800 px-4 sm:px-6 py-6 mt-6 sm:mt-10 rounded-xl border border-blue-200 shadow-sm">
+      <h2 className="text-xl sm:text-2xl font-bold text-blue-600 mb-4">
+        ✏️ Update Shipment
+      </h2>
 
-      <div className="space-y-2 text-sm">
-        <p><span className="font-semibold">📦 Tracking ID:</span> <span className="font-mono">{shipment.trackingId}</span></p>
-        <p><span className="font-semibold">📤 Sender:</span> {shipment.senderName}</p>
-        <p><span className="font-semibold">📥 Receiver:</span> {shipment.receiverName}</p>
-        <p><span className="font-semibold">📍 Current Status:</span> {shipment.status}</p>
+      {/* Shipment Info */}
+      <div className="space-y-2 text-sm sm:text-base">
+        <p><span className="font-medium">📦 Tracking ID:</span> <span className="font-mono">{shipment.trackingId}</span></p>
+        <p><span className="font-medium">📤 Sender:</span> {shipment.senderName}</p>
+        <p><span className="font-medium">📥 Receiver:</span> {shipment.receiverName}</p>
+        <p><span className="font-medium">📍 Current Status:</span> {shipment.status}</p>
       </div>
 
-      {/* Status Dropdown */}
+      {/* Status Update */}
       <div className="mt-6">
         <label className="block text-sm font-medium text-slate-700 mb-1">Update Status</label>
         <select
@@ -87,14 +97,14 @@ const UpdateShipment = () => {
           className="w-full border border-blue-300 rounded-md p-2 bg-white text-sm shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
           value={adminNote}
           onChange={(e) => setAdminNote(e.target.value)}
-          placeholder="Optional note for internal or delivery team"
+          placeholder="Optional note for delivery team"
         />
       </div>
 
-      {/* Submit Button */}
+      {/* Save Button */}
       <button
-        className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-semibold transition shadow"
         onClick={handleUpdate}
+        className="mt-6 w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-semibold transition shadow"
       >
         💾 Update Shipment
       </button>

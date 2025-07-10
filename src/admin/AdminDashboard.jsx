@@ -59,7 +59,7 @@ const AdminDashboard = () => {
           <div className="text-center text-gray-500 py-12">Loading shipments...</div>
         ) : (
           <div className="overflow-x-auto rounded-2xl border border-blue-200 shadow-lg bg-white">
-            <table className="min-w-full text-sm text-left text-blue-900">
+            <table className="min-w-[1000px] w-full text-sm text-left text-blue-900">
               <thead className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 text-xs uppercase tracking-wider">
                 <tr>
                   <th className="p-4">Tracking ID</th>

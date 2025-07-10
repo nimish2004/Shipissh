@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiMenu } from "react-icons/fi";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onLogout, onToggleSidebar }) => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -25,12 +25,15 @@ const Navbar = ({ onLogout }) => {
 
   return (
     <header className="h-16 bg-gradient-to-r from-white via-blue-50 to-blue-100 text-blue-800 flex items-center justify-between px-6 shadow-md border-b border-blue-200">
-      {/* Logo or title */}
+      {/* Sidebar Toggle for Mobile */}
+      <button onClick={onToggleSidebar} className="md:hidden text-blue-700 mr-3">
+        <FiMenu size={24} />
+      </button>
+
       <Link to="/dashboard" className="text-xl font-bold text-blue-700 tracking-tight hover:underline">
-       Welcome Back {user.displayName || "User"}
+        Welcome Back {user.displayName || "User"}
       </Link>
 
-      {/* Right section */}
       <div className="flex items-center gap-4">
         <Link to="/profile" className="flex items-center gap-2 group">
           <img
@@ -56,3 +59,4 @@ const Navbar = ({ onLogout }) => {
 };
 
 export default Navbar;
+ 

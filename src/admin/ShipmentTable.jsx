@@ -1,4 +1,3 @@
-// src/admin/ShipmentTable.jsx
 import React from "react";
 
 const ShipmentTable = ({ shipments, onStatusUpdate }) => {
@@ -18,10 +17,21 @@ const ShipmentTable = ({ shipments, onStatusUpdate }) => {
     }
   };
 
+  const formatDate = (timestamp) => {
+    try {
+      return timestamp?.toDate().toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }) || "N/A";
+    } catch {
+      return "Invalid Date";
+    }
+  };
+
   return (
-    <div className="overflow-x-auto mt-6 rounded-lg border border-blue-200 bg-white shadow-sm">
-      <table className="w-full table-auto border border-gray-700 text-sm text-left">
-        <thead className="bg-blue-50 text-blue-800 font-semibold border-b border-blue-200">
+    <div className="overflow-x-auto mt-6 rounded-xl border border-blue-200 bg-white shadow-md">
+      <table className="w-full min-w-[600px] text-sm text-left text-blue-900">
+        <thead className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 font-semibold border-b border-blue-200">
           <tr>
             <th className="p-3">Tracking ID</th>
             <th className="p-3">Sender</th>
@@ -34,7 +44,7 @@ const ShipmentTable = ({ shipments, onStatusUpdate }) => {
         <tbody>
           {shipments.length === 0 ? (
             <tr>
-              <td colSpan="6" className="p-4 text-center text-gray-400">
+              <td colSpan="6" className="p-4 text-center text-gray-500">
                 No shipments found.
               </td>
             </tr>
@@ -44,17 +54,15 @@ const ShipmentTable = ({ shipments, onStatusUpdate }) => {
                 key={shipment.id}
                 className="border-t border-blue-100 hover:bg-blue-50 transition"
               >
-                <td className="p-3 font-mono text-blue-800">
-                  {shipment.trackingId}
-                </td>
+                <td className="p-3 font-mono text-sm">{shipment.trackingId}</td>
                 <td className="p-3">{shipment.senderName}</td>
                 <td className="p-3">{shipment.receiverName}</td>
-                <td className="p-3 text-sm text-gray-600">
-                  {shipment.createdAt?.toDate().toLocaleString()}
+                <td className="p-3 text-gray-700 text-sm">
+                  {formatDate(shipment.createdAt)}
                 </td>
                 <td className="p-3">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                    className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
                       shipment.status
                     )}`}
                   >
@@ -65,13 +73,13 @@ const ShipmentTable = ({ shipments, onStatusUpdate }) => {
                   <select
                     value={shipment.status}
                     onChange={(e) => onStatusUpdate(shipment.id, e.target.value)}
-                    className="p-2 border border-blue-300 rounded-md bg-white text-sm text-blue-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="cursor-pointer px-2 py-1 border border-blue-300 rounded-md bg-white text-sm text-blue-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                   >
-                    <option>Created</option>
-                    <option>Picked Up</option>
-                    <option>In Transit</option>
-                    <option>Out for Delivery</option>
-                    <option>Delivered</option>
+                    <option value="Created">Created</option>
+                    <option value="Picked Up">Picked Up</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
                   </select>
                 </td>
               </tr>
