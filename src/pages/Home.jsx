@@ -57,7 +57,7 @@ const [showSignup, setShowSignup] = useState(false);
   <div className="flex items-center gap-3">
     <img src="/logo.png" alt="Shipissh Logo" className="w-10 h-10 object-contain" />
     <h1 className="text-2xl font-extrabold text-blue-700 tracking-wide">
-      Shipissh
+      <Link to="/"> Shipissh </Link>
     </h1>
   </div>
 

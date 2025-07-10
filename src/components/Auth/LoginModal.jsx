@@ -28,7 +28,7 @@ const LoginModal = ({ onClose }) => {
     }
 
     // Navigate if verified
-    if (result.user.email === "admin@example.com") navigate("/admin");
+    if (result.user.email === "nimish.berwal@gmail.com") navigate("/admin");
     else navigate("/dashboard");
 
     onClose(); // Close modal

@@ -112,7 +112,7 @@ const CreateShipment = () => {
         📦 Create New Shipment
       </h2>
 
-      <div id="recaptcha-container"></div> {/* 🔐 Recaptcha here */}
+      <div id="recaptcha-container">{/* 🔐 Recaptcha here */}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Email (auto-filled) */}
@@ -218,6 +218,7 @@ const CreateShipment = () => {
           {loading ? "Creating..." : "Create Shipment"}
         </button>
       </form>
+    </div>
     </div>
   );
 };

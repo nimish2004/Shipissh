@@ -24,21 +24,21 @@ const Navbar = ({ onLogout }) => {
   }, []);
 
   return (
-    <header className="h-16 bg-gradient-to-r from-white via-blue-50 to-blue-100 text-gray-800 flex items-center justify-between px-6 shadow border-b border-blue-200">
-      {/* Logo */}
-      <Link to="/dashboard">
-        
+    <header className="h-16 bg-gradient-to-r from-white via-blue-50 to-blue-100 text-blue-800 flex items-center justify-between px-6 shadow-md border-b border-blue-200">
+      {/* Logo or title */}
+      <Link to="/dashboard" className="text-xl font-bold text-blue-700 tracking-tight hover:underline">
+       Welcome Back {user.displayName || "User"}
       </Link>
 
       {/* Right section */}
-      <div className="flex items-center gap-5">
-        <Link to="/profile" className="flex items-center gap-2 group transition">
+      <div className="flex items-center gap-4">
+        <Link to="/profile" className="flex items-center gap-2 group">
           <img
             src={user.photoURL}
             alt="avatar"
             className="w-9 h-9 rounded-full object-cover border border-blue-300 group-hover:ring-2 group-hover:ring-blue-400"
           />
-          <span className="text-sm font-medium text-gray-700 group-hover:underline">
+          <span className="text-sm font-medium group-hover:underline">
             {user.displayName}
           </span>
         </Link>
@@ -54,6 +54,5 @@ const Navbar = ({ onLogout }) => {
     </header>
   );
 };
-
 
 export default Navbar;

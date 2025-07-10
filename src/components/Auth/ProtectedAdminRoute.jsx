@@ -9,7 +9,7 @@ const ProtectedAdminRoute = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user && user.email === "admin@example.com") {
+      if (user && user.email === "nimish.berwal@gmail.com") {
         setIsAdmin(true);
       } else {
         setIsAdmin(false);
