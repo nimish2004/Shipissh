@@ -1,12 +1,86 @@
-# React + Vite
+# 🚚 Shipissh - Shipment Delivery Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Shipissh** is a modern and responsive shipment delivery management web application built with React and Firebase. It allows users to create shipments, track them in real time, and manage their profile. An admin panel is also included to manage and monitor all shipments.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 👤 User Functionality
+- ✅ User registration & login (Email, Google, Phone OTP via Firebase Auth)
+- 📦 Create new shipments with sender & receiver details
+- 🔍 Track shipments using tracking ID
+- 🧾 View shipment history and detailed status
+- 🧑‍💼 Manage profile (including profile photo)
 
-## Expanding the ESLint configuration
+### 🛠 Admin Functionality
+- 📊 Admin dashboard to view & manage all shipments
+- 🔄 Update shipment status
+- 📝 Add internal notes for shipments
+- 📁 Expandable shipment details view
+- 📱 Fully responsive with sidebar toggle for mobile
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 💄 UI/UX
+- 🎨 Clean and modern design with gradients
+- 📱 Mobile responsive dashboard
+- 🌙 Light theme across all components
+- 🔁 Reusable components: Modal, Layouts, Tables
+
+## 🧰 Tech Stack
+
+| Tech             | Purpose                               |
+|------------------|----------------------------------------|
+| React.js         | Frontend UI                            |
+| Firebase Auth    | User authentication (Email, Phone)     |
+| Firestore DB     | Realtime database for storing shipments|
+| Tailwind CSS     | Responsive UI styling                  |
+| React Router DOM | Page routing                           |
+| React Icons      | Icons and UI elements                  |
+
+## 📸 Screenshots
+
+> Add your screenshots here ![alt text](image.png) ![alt text](image-1.png):
+- Dashboard view
+- Shipment creation form
+- Track shipment modal
+- Admin panel
+- Mobile view toggle sidebar
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/nimish2004/Shipissh
+cd shipissh
+
+
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+
+## 🗃 Folder Structure
+
+```bash
+src/
+├── components/        # Reusable UI components (Sidebar, Navbar, Modal)
+├── pages/             # Page-level components (Dashboard, Track, Create)
+├── admin/             # Admin panel components
+├── firebase.js        # Firebase config
+└── App.jsx            # Main app with routing
+```
+
+## 🧑‍💻 Author
+Made with ❤️ by Nimish B
+
+
+
