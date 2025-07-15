@@ -17,12 +17,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Export Firebase services
-export const auth = getAuth();
-auth.languageCode = 'it';
+// ✅ Fix: pass `app` to getAuth
+export const auth = getAuth(app); 
+  auth.languageCode = 'it'; // Optional
+
 export const db = getFirestore(app);
 
-// For testing in browser console
+// Optional: For browser console testing
 if (typeof window !== "undefined") {
   window.db = db;
   window.addDoc = addDoc;

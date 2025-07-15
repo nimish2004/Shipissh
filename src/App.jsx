@@ -20,6 +20,7 @@ import UpdateShipment from "./admin/UpdateShipment";
 import AdminLayout from "./admin/AdminLayout"; 
 import Users from "./admin/Users";
 import Home from "./pages/Home";
+import Payment from "./components/Payment"; 
 
 function App() {
   const navigate = useNavigate();
@@ -42,6 +43,14 @@ function App() {
     </ProtectedAdminRoute>
   }
 />
+<Route 
+    path="/payment/:shipmentId" 
+    element={
+      <Layout onLogout={handleLogout}>
+        <Payment />
+      </Layout>
+    } 
+  />
 <Route
   path="/admin/update/:id"
   element={
