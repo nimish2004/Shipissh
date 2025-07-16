@@ -90,7 +90,7 @@ const SignupModal = ({ onClose }) => {
 
       // Send verification email
       await sendEmailVerification(user);
-      alert("Signup successful! Please verify your email before logging in.");
+      alert("Signup successful! Please verify your email before logging in.(Kindly Check your spam folder if you don't see the email.)");
 
       // Optionally: sign out until email is verified
       // await auth.signOut();
@@ -161,13 +161,6 @@ const SignupModal = ({ onClose }) => {
             value={formData.bio}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 text-sm rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-          />
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setPhoto(e.target.files[0])}
-            className="text-sm text-blue-800"
           />
 
           <div className="relative">
